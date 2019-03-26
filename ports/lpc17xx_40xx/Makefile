@@ -54,12 +54,14 @@ SRC_C = \
 	sysinit.c \
 	./boards/Edeboy/src/board_sysinit.c \
 	./boards/Edeboy/src/board.c \
+	./Libraries/src/chip_17xx_40xx.c \
 	./Libraries/src/sysinit_17xx_40xx.c \
 	./Libraries/src/clock_17xx_40xx.c \
 	./Libraries/src/sysctl_17xx_40xx.c \
 	./Libraries/src/gpio_17xx_40xx.c \
 	./Libraries/src/iocon_17xx_40xx.c \
-	./Libraries/src/uart_17xx_40xx.c
+	./Libraries/src/uart_17xx_40xx.c\
+	./modules/machine.c
 
 OBJ = $(PY_CORE_O) $(addprefix $(BUILD)/, $(SRC_C:.c=.o))
 
