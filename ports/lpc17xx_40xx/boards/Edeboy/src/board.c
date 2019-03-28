@@ -412,9 +412,9 @@ void Board_UARTPutSTR(char *str)
 #endif
 }
 
-#define MAXLEDS 2
-static const uint8_t ledports[MAXLEDS] = {2, 2};
-static const uint8_t ledpins[MAXLEDS] = {26, 27};
+#define MAXLEDS 4
+static const uint8_t ledports[MAXLEDS] = {0, 1, 4, 5};
+static const uint8_t ledpins[MAXLEDS] = {26, 13, 27, 0};
 
 /* Initializes board LED(s) */
 static void Board_LED_Init(void)
@@ -424,8 +424,8 @@ static void Board_LED_Init(void)
 	/* Setup port direction and initial output state */
 	for (i = 0; i < MAXLEDS; i++)
 	{
-		Chip_GPIO_WriteDirBit(LPC_GPIO, ledports[i], ledpins[i], true);
-		Chip_GPIO_WritePortBit(LPC_GPIO, ledports[i], ledpins[i], true);
+		Chip_GPIO_SetPinDIROutput(LPC_GPIO, ledports[i], ledpins[i]);
+		Chip_GPIO_WritePortBit(LPC_GPIO, ledports[i], ledpins[i], false);
 	}
 }
 
@@ -434,8 +434,8 @@ void Board_LED_Set(uint8_t LEDNumber, bool On)
 {
 	if (LEDNumber < MAXLEDS)
 	{
-		/* Set state, low is on, high is off */
-		Chip_GPIO_SetPinState(LPC_GPIO, ledports[LEDNumber], ledpins[LEDNumber], !On);
+		/* Set state, low is off, high is on */
+		Chip_GPIO_SetPinState(LPC_GPIO, ledports[LEDNumber], ledpins[LEDNumber], On);
 	}
 }
 
@@ -531,7 +531,7 @@ void Board_Init(void)
 	Chip_IOCON_Init(LPC_IOCON);
 
 	/* Initialize LEDs */
-	// Board_LED_Init();
+	Board_LED_Init();
 	Board_UART_Init(LPC_UART0);
 	Board_Debug_Init();
 }

@@ -17,6 +17,7 @@ INC += -I$(TOP)
 INC += -I$(BUILD)
 INC += -I./boards/Edeboy/inc
 INC += -I./Libraries/inc
+INC += -I./modules
 
 ifeq ($(CROSS), 1)
 DFU = $(TOP)/tools/dfu.py
@@ -60,8 +61,9 @@ SRC_C = \
 	./Libraries/src/sysctl_17xx_40xx.c \
 	./Libraries/src/gpio_17xx_40xx.c \
 	./Libraries/src/iocon_17xx_40xx.c \
-	./Libraries/src/uart_17xx_40xx.c\
-	./modules/machine.c
+	./Libraries/src/uart_17xx_40xx.c \
+	./modules/machine.c \
+	./modules/led.c
 
 OBJ = $(PY_CORE_O) $(addprefix $(BUILD)/, $(SRC_C:.c=.o))
 
